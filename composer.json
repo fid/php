@@ -1,0 +1,17 @@
+{
+  "name": "fid/php",
+  "license": "MIT",
+  "description": "Fortifi ID Standard",
+  "homepage": "http://fid.directory/",
+  "require": {
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fid\\Php\\": "src/",
+      "Fid\\Tests\\Php\\": "tests/"
+    }
+  }
+}
