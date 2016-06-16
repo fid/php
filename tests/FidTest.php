@@ -45,7 +45,7 @@ class FidTest extends \PHPUnit_Framework_TestCase
 
     $this->assertLessThan(2, $wrongSecret);
 
-    $limit = 100000;
+    $limit = 10000;
     for($i = 0; $i < $limit; $i++)
     {
       $this->assertTrue(Fid::verify(Fid::generate('ABC', 'DE', 'FG')));
