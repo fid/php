@@ -3,6 +3,7 @@ namespace Fid\Tests\Php;
 
 use Fid\Php\Definitions\Location;
 use Fid\Php\Definitions\SystemIndicator;
+use Fid\Php\Exceptions\FidGenerateException;
 use Fid\Php\Fid;
 
 class FidTest extends \PHPUnit_Framework_TestCase
@@ -25,6 +26,36 @@ class FidTest extends \PHPUnit_Framework_TestCase
     $unique = count(array_unique($found));
 
     $this->assertLessThan(1, $generated - $unique);
+  }
+
+  public function testVendor()
+  {
+    $this->expectException(FidGenerateException::class);
+    Fid::generate('AC', '', '');
+  }
+
+  public function testType()
+  {
+    $this->expectException(FidGenerateException::class);
+    Fid::generate('ACD', 'W', '');
+  }
+
+  public function testSubType()
+  {
+    $this->expectException(FidGenerateException::class);
+    Fid::generate('ACD', 'WW', 'D');
+  }
+
+  public function testIndicator()
+  {
+    $this->expectException(FidGenerateException::class);
+    Fid::generate('ACD', 'WW', 'DD', 'H');
+  }
+
+  public function testLocation()
+  {
+    $this->expectException(FidGenerateException::class);
+    Fid::generate('ACD', 'WW', 'DD', SystemIndicator::ENTITY, null, 'USC1');
   }
 
   public function testVerify()
@@ -70,6 +101,10 @@ class FidTest extends \PHPUnit_Framework_TestCase
     $this->assertEquals($subType, $describe->getSubType());
     $this->assertEquals($indicator, $describe->getIndicator());
     $this->assertEquals($location, $describe->getLocation());
+    $this->assertTrue(strlen($describe->getTimeKey()) == 9);
+    $this->assertTrue(strlen($describe->getRandom()) == 7);
+    $this->assertTrue(($describe->getTimestampMs() / 1000) > ($time - 10));
+    $this->assertTrue(($describe->getTimestampMs() / 1000) < ($time + 10));
     $this->assertTrue($describe->getTimestamp() > ($time - 10));
     $this->assertTrue($describe->getTimestamp() < ($time + 10));
   }
