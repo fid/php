@@ -60,12 +60,12 @@ class Fid
     }
 
     $fid = sprintf(
-      "%s-%s%s%s%s-%s-%s",
-      Base36TimeKey::generate(),
+      "%s%s%s%s-%s-%s-%s",
       $indicator,
       $vendor,
       $type,
       $subType,
+      Base36TimeKey::generate(),
       $location,
       $random
     );
@@ -96,7 +96,7 @@ class Fid
     $fid = strtoupper($fid);
     $verified = false;
     if(preg_match(
-      "/[A-Z0-9=]{9}-[A-Z0-9=]{8}-[A-Z0-9=]{5}-[A-Z0-9=]{7}/",
+      "/[A-Z0-9=]{8}-[A-Z0-9=]{9}-[A-Z0-9=]{5}-[A-Z0-9=]{7}/",
       $fid
     ))
     {

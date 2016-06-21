@@ -19,11 +19,11 @@ class FidDescription
   public function __construct($fid)
   {
     $fid = strtoupper($fid);
-    $this->timeKey = substr($fid, 0, 9);
-    $this->indicator = substr($fid, 10, 1);
-    $this->vendor = substr($fid, 11, 3);
-    $this->type = substr($fid, 14, 2);
-    $this->subType = substr($fid, 16, 2);
+    $this->timeKey = substr($fid, 9, 9);
+    $this->indicator = substr($fid, 0, 1);
+    $this->vendor = substr($fid, 1, 3);
+    $this->type = substr($fid, 4, 2);
+    $this->subType = substr($fid, 6, 2);
     $this->location = substr($fid, 19, 5);
     $this->random = substr($fid, 25, 7);
     $this->verify = substr($fid, 31, 1);
