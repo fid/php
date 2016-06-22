@@ -7,8 +7,8 @@ class FidDescription
 {
   private $indicator;
   private $vendor;
+  private $app;
   private $type;
-  private $subType;
   private $location;
   private $timeKey;
   private $random;
@@ -22,8 +22,8 @@ class FidDescription
     $this->timeKey = substr($fid, 9, 9);
     $this->indicator = substr($fid, 0, 1);
     $this->vendor = substr($fid, 1, 3);
-    $this->type = substr($fid, 4, 2);
-    $this->subType = substr($fid, 6, 2);
+    $this->app = substr($fid, 4, 2);
+    $this->type = substr($fid, 6, 2);
     $this->location = substr($fid, 19, 5);
     $this->random = substr($fid, 25, 7);
     $this->verify = substr($fid, 31, 1);
@@ -52,17 +52,17 @@ class FidDescription
   /**
    * @return mixed
    */
-  public function getType()
+  public function getApp()
   {
-    return $this->type;
+    return $this->app;
   }
 
   /**
    * @return mixed
    */
-  public function getSubType()
+  public function getType()
   {
-    return $this->subType;
+    return $this->type;
   }
 
   /**

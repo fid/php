@@ -34,13 +34,13 @@ class FidTest extends \PHPUnit_Framework_TestCase
     Fid::generate('AC', '', '');
   }
 
-  public function testType()
+  public function testApp()
   {
     $this->expectException(FidGenerateException::class);
     Fid::generate('ACD', 'W', '');
   }
 
-  public function testSubType()
+  public function testType()
   {
     $this->expectException(FidGenerateException::class);
     Fid::generate('ACD', 'WW', 'D');
@@ -86,19 +86,19 @@ class FidTest extends \PHPUnit_Framework_TestCase
   public function testDescribe()
   {
     $vendor = 'ABR';
-    $type = 'BT';
-    $subType = 'FH';
+    $app = 'BT';
+    $type = 'FH';
     $indicator = SystemIndicator::CONFIGURATION;
     $location = Location::US_CENTRAL1_B;
 
     $time = time();
-    $fid = Fid::generate($vendor, $type, $subType, $indicator, null, $location);
+    $fid = Fid::generate($vendor, $app, $type, $indicator, null, $location);
 
     $describe = Fid::describe($fid);
 
     $this->assertEquals($vendor, $describe->getVendor());
+    $this->assertEquals($app, $describe->getApp());
     $this->assertEquals($type, $describe->getType());
-    $this->assertEquals($subType, $describe->getSubType());
     $this->assertEquals($indicator, $describe->getIndicator());
     $this->assertEquals($location, $describe->getLocation());
     $this->assertTrue(strlen($describe->getTimeKey()) == 9);

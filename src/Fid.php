@@ -12,8 +12,8 @@ class Fid
    * Generate a new FID
    *
    * @param string $vendor Vendor Key
+   * @param string $app App key
    * @param string $type
-   * @param string $subType
    * @param string $indicator
    * @param null   $secret
    * @param string $location
@@ -23,7 +23,7 @@ class Fid
    * @return string FID
    */
   public static function generate(
-    $vendor, $type, $subType, $indicator = SystemIndicator::ENTITY,
+    $vendor, $app, $type, $indicator = SystemIndicator::ENTITY,
     $secret = null, $location = Location::UNKNOWN_REGION
   )
   {
@@ -32,14 +32,14 @@ class Fid
       throw new FidGenerateException("Vendor Key must be 3 characters");
     }
 
-    if(strlen($type) !== 2)
+    if(strlen($app) !== 2)
     {
-      throw new FidGenerateException("FID Type must be 2 characters");
+      throw new FidGenerateException("App Key must be 2 characters");
     }
 
-    if(strlen($subType) !== 2)
+    if(strlen($type) !== 2)
     {
-      throw new FidGenerateException("FID Sub Type must be 2 characters");
+      throw new FidGenerateException("Entity Type must be 2 characters");
     }
 
     if(!SystemIndicator::validate($indicator))
@@ -63,8 +63,8 @@ class Fid
       "%s%s%s%s-%s-%s-%s",
       $indicator,
       $vendor,
+      $app,
       $type,
-      $subType,
       Base36TimeKey::generate(),
       $location,
       $random
