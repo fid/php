@@ -2,7 +2,7 @@
 
 #### Generate
 
-generate($vendorKey,$appKey,$type,(SystemIndicator) $indicator, $vendorSecret, $dataLocation);
+generate($vendorKey, $appKey, $type, $indicator, $vendorSecret, $dataLocation);
 
 ```php
 Fid::generate('VEN', 'AP', 'MI', SystemIndicator::ENTITY, null, Location::US_CENTRAL1_B);
@@ -13,7 +13,7 @@ Fid::generate('VEN', 'AP', 'MI', SystemIndicator::ENTITY, null, Location::US_CEN
 verify($fid, $secret)
 
 ```php
-Fid::verify("IPIH7MI2=-EABCCDEF-MISCR-V669VFQ", "secr3t")
+Fid::verify("EVENAPMI-IPQOOI74=-USC1B-07I9I9H", "secr3t")
 ```
 
 #### Describe
@@ -21,7 +21,7 @@ Fid::verify("IPIH7MI2=-EABCCDEF-MISCR-V669VFQ", "secr3t")
 describe($fid)
 
 ```php
-Fid::describe("IPIH7MI2=-EABCCDEF-MISCR-V669VFQ")
+Fid::describe("EVENAPMI-IPQOOI74=-USC1B-07I9I9H")
 ```
 
 Describe returns a description object (FidDescription)
