@@ -11,17 +11,19 @@ class FidTest extends \PHPUnit_Framework_TestCase
   public function testGenerate()
   {
     $found = [];
-    $limit = 10000;
-    //$start = microtime(true);
-    for($i = 0; $i < $limit; $i++)
+    $limit = 1000;
+    for($x = 0; $x <= 10; $x++)
     {
-      $found[] = Fid::generate('ABC', 'CD', 'EF');
+      //$start = microtime(true);
+      for($i = 0; $i < $limit; $i++)
+      {
+        $found[] = Fid::generate('ABC', 'CD', 'EF');
+      }
+      //$finish = microtime(true);
+      //echo round((($finish - $start) * 1000) / $limit, 4) . "ms per FID\n";
     }
-    //$finish = microtime(true);
-    //echo (($finish - $start) * 1000) / $limit . "ms per FID\n";
-
     $generated = count($found);
-    $this->assertEquals($generated, $limit);
+    $this->assertEquals($generated, $limit * $x);
 
     $unique = count(array_unique($found));
 

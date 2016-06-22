@@ -12,7 +12,7 @@ class Fid
    * Generate a new FID
    *
    * @param string $vendor Vendor Key
-   * @param string $app App key
+   * @param string $app    App key
    * @param string $type
    * @param string $indicator
    * @param null   $secret
@@ -52,13 +52,6 @@ class Fid
       throw new FidGenerateException("Invalid Data Location");
     }
 
-    $random = '';
-    $randCount = $secret === null ? 7 : 6;
-    for($i = 0; $i < $randCount; $i++)
-    {
-      $random .= static::randomCharacter();
-    }
-
     $fid = sprintf(
       "%s%s%s%s-%s-%s-%s",
       $indicator,
@@ -67,7 +60,7 @@ class Fid
       $type,
       Base36TimeKey::generate(),
       $location,
-      $random
+      static::randomString($secret === null ? 7 : 6)
     );
 
     if($secret !== null)
@@ -78,9 +71,9 @@ class Fid
     return $fid;
   }
 
-  private static function randomCharacter()
+  private static function randomString($len = 7)
   {
-    return rand(1, 2) == 1 ? chr(rand(65, 90)) : rand(0, 9);
+    return substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, $len);
   }
 
   /**
