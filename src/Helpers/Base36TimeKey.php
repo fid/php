@@ -26,7 +26,7 @@ class Base36TimeKey
     $time = floor($time);
 
     $return = base_convert(str_pad($time, 13, '0', STR_PAD_LEFT), 10, 36);
-    return str_pad(strtoupper($return), 9, '=', STR_PAD_RIGHT);
+    return str_pad(strtoupper($return), 9, '0', STR_PAD_LEFT);
   }
 
   public static function getMsTime($timeKey)
