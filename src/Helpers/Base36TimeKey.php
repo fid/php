@@ -3,6 +3,9 @@ namespace Fid\Php\Helpers;
 
 class Base36TimeKey
 {
+  // Base 10 representation of Max value of FID Base 32 timestamp
+  protected static $maxTimestampValBase10 = 101559956668415;
+
   public static function generate($time = null)
   {
     if($time === null)
@@ -23,7 +26,7 @@ class Base36TimeKey
       }
     }
 
-    $time = floor($time);
+    $time = Base36TimeKey::$maxTimestampValBase10 - $time;
 
     $return = base_convert(str_pad($time, 13, '0', STR_PAD_LEFT), 10, 36);
     return str_pad(strtoupper($return), 9, '0', STR_PAD_LEFT);
@@ -32,6 +35,7 @@ class Base36TimeKey
   public static function getMsTime($timeKey)
   {
     $time = base_convert(rtrim($timeKey, '='), 36, 10);
+    $time = Base36TimeKey::$maxTimestampValBase10 - $time;
     return substr_replace($time, '.', -3, 0);
   }
 }
